@@ -1,4 +1,3 @@
-
 // ==UserScript==
 // @name         bro3_Auto_Bilder
 // @namespace    http://at-n2.net/
@@ -6,7 +5,6 @@
 // @icon         http://5zen.info/hokan/icon.png
 // @include      http://*.3gokushi.jp/*
 // @require      http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js
-// @require      http://sizzlemctwizzle.com/updater.php?id=132191
 // @homepage     http://5zen.info/
 // @version      2012.10.10 (やっぱり人柱版）
 // @updateURL    http://userscripts.org/scripts/source/132191.meta.js
