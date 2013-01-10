@@ -1,4 +1,3 @@
-
 // ==UserScript==
 // @name         bro3_Auto_Bilder
 // @namespace    http://at-n2.net/
@@ -7,7 +6,7 @@
 // @include      http://*.3gokushi.jp/*
 // @require      http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js
 // @homepage     http://5zen.info/
-// @version      2012.01.10 (やっぱり人柱版）
+// @version      2013.01.10 (やっぱり人柱版）
 // @updateURL    http://userscripts.org/scripts/source/132191.meta.js
 // @icon         http://5zen.info/mikanbox/icon.png
 // ==/UserScript==
