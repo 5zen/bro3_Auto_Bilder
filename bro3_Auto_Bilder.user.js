@@ -1,3 +1,4 @@
+
 // ==UserScript==
 // @name         bro3_Auto_Bilder
 // @namespace    http://at-n2.net/
@@ -6,7 +7,7 @@
 // @include      http://*.3gokushi.jp/*
 // @require      http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js
 // @homepage     http://5zen.info/
-// @version      2012.10.10 (やっぱり人柱版）
+// @version      2012.01.10 (やっぱり人柱版）
 // @updateURL    http://userscripts.org/scripts/source/132191.meta.js
 // @icon         http://5zen.info/mikanbox/icon.png
 // ==/UserScript==
@@ -60,8 +61,14 @@
 // 2012.09.29 資源表示部分のcssの修正
 // 2012.09.30 資源表示部分のcssの修正（プルダウンメニュー・マップ画面）
 // 2012.10.10 地図画面の小さな矢印が押せなかったのを修正
+// 2013.01.10 糧村・資源村のスキルプリセットを修正
+//            ダイアログデザインをちょっと修正
+//            情報表示ダイアログを非表示でも強制的に表示される現象の修正（領地画面とか）
 
-var VERSION = "2012.10.10 (やっぱり人柱版）";	// バージョン情報
+var VERSION = "2012.01.10 (やっぱり人柱版）";	// バージョン情報
+
+//*** これを変更するとダイアログのフォントスタイルが変更できます ***
+var fontstyle =	"bold 10px 'ＭＳ ゴシック'";	// ダイアログの基本フォントスタイル
 
 var DEBUG = false;
 
@@ -636,8 +643,10 @@ function settleVillages(z){
 									//拠点が作成開始できているか確認
 									if (!htmldoc.innerHTML.match(/名声が不足しています/)) {
 										getAddingVillage(htmldoc);
-										closeIniBilderBox()
-										openIniBilderBox()
+									 	if ( getStayMode() ) {
+											closeIniBilderBox()
+											openIniBilderBox()
+										}
 									}
 								}
 							});
@@ -962,8 +971,10 @@ function getAddingVillage(htmldoc) {
 			msg += "(" + URL_PARAM.x + "," + URL_PARAM.y + ")には、すでに建設予約があります。";
 		}
 		alert(msg);
-		closeIniBilderBox()
-		openIniBilderBox()
+	 	if ( getStayMode() ) {
+			closeIniBilderBox()
+			openIniBilderBox()
+		}
 	}
 
 	function addList2(kind, status, x, y) //kind=220:村予約 222:砦予約
@@ -1055,8 +1066,10 @@ function addLinkTondenVillage() {
 			msg += "(" + x + "," + y + ")には、すでに建設予約があります。";
 		}
 		alert(msg);
-		closeIniBilderBox()
-		openIniBilderBox()
+	 	if ( getStayMode() ) {
+			closeIniBilderBox()
+			openIniBilderBox()
+		}
 	}
 
 	function addList2(kind, status, x, y) //kind=220:村予約 222:砦予約
@@ -1106,8 +1119,10 @@ function getDeletingVillage(htmldoc) {
 	}else{
 		delList(1, x, y);
 	}
-	closeIniBilderBox()
-	openIniBilderBox()
+ 	if ( getStayMode() ) {
+		closeIniBilderBox()
+		openIniBilderBox()
+	}
 
 	function addList(tim, kind, status, x, y) 
 	{
@@ -2575,6 +2590,7 @@ function InitMilitaryHome(){
 	var textbox = $a('//input[@id="OPT_CHKBOXLV21"]');  textbox[0].value = 10;	// 遠征訓練所
 	var textbox = $a('//input[@id="OPT_CHKBOXLV22"]');  textbox[0].value = 8;	// 見張り台
 	// 内政設定
+	// 内政設定
 	var checkbox = $a('//input[@id="OPT_DOME1"]'); checkbox[0].checked = false; // 伐採知識
 	var checkbox = $a('//input[@id="OPT_DOME2"]'); checkbox[0].checked = false; // 伐採技術
 	var checkbox = $a('//input[@id="OPT_DOME3"]'); checkbox[0].checked = false; // 弓兵増強
@@ -2595,8 +2611,18 @@ function InitMilitaryHome(){
 	var checkbox = $a('//input[@id="OPT_DOME18"]'); checkbox[0].checked = false; // 富国強兵
 	var checkbox = $a('//input[@id="OPT_DOME19"]'); checkbox[0].checked = false; // 豊穣
 	var checkbox = $a('//input[@id="OPT_DOME20"]'); checkbox[0].checked = false; // 美玉歌舞
-	var checkbox = $a('//input[@id="OPT_DOME21"]'); checkbox[0].checked = false; // 呉の治世
-	var checkbox = $a('//input[@id="OPT_DOME22"]'); checkbox[0].checked = false; // 王佐の才
+	var checkbox = $a('//input[@id="OPT_DOME21"]'); checkbox[0].checked = false; // 恵風
+	var checkbox = $a('//input[@id="OPT_DOME22"]'); checkbox[0].checked = false; // 人選眼力
+	var checkbox = $a('//input[@id="OPT_DOME23"]'); checkbox[0].checked = false; // 呉の治世
+	var checkbox = $a('//input[@id="OPT_DOME24"]'); checkbox[0].checked = false; // 王佐の才
+	var checkbox = $a('//input[@id="OPT_DOME25"]'); checkbox[0].checked = false; // 練兵訓練
+	var checkbox = $a('//input[@id="OPT_DOME26"]'); checkbox[0].checked = false; // 　　修練
+	var checkbox = $a('//input[@id="OPT_DOME27"]'); checkbox[0].checked = false; // 厩舎訓練
+	var checkbox = $a('//input[@id="OPT_DOME28"]'); checkbox[0].checked = false; // 　　修練
+	var checkbox = $a('//input[@id="OPT_DOME29"]'); checkbox[0].checked = false; // 弓兵訓練
+	var checkbox = $a('//input[@id="OPT_DOME30"]'); checkbox[0].checked = false; // 　　修練
+	var checkbox = $a('//input[@id="OPT_DOME31"]'); checkbox[0].checked = false; // 兵舎訓練
+	var checkbox = $a('//input[@id="OPT_DOME32"]'); checkbox[0].checked = false; // 　　修練
 }
 
 function InitRiceParadise(){
@@ -2612,28 +2638,38 @@ function InitRiceParadise(){
 	var textbox = $a('//input[@id="OPT_CHKBOXLV5"]');   textbox[0].value = 20;		// 倉庫
 	var textbox = $a('//input[@id="OPT_CHKBOXLV6"]');   textbox[0].value = 10;		// 銅雀台
 	// 内政設定
-	var checkbox = $a('//input[@id="OPT_DOME1"]'); checkbox[0].checked = false; // 伐採知識
-	var checkbox = $a('//input[@id="OPT_DOME2"]'); checkbox[0].checked = false; // 伐採技術
-	var checkbox = $a('//input[@id="OPT_DOME3"]'); checkbox[0].checked = false; // 弓兵増強
-	var checkbox = $a('//input[@id="OPT_DOME4"]'); checkbox[0].checked = false; // 石切知識
-	var checkbox = $a('//input[@id="OPT_DOME5"]'); checkbox[0].checked = false; // 石切技術
-	var checkbox = $a('//input[@id="OPT_DOME6"]'); checkbox[0].checked = false; // 弓兵増強
-	var checkbox = $a('//input[@id="OPT_DOME7"]'); checkbox[0].checked = false; // 製鉄知識
-	var checkbox = $a('//input[@id="OPT_DOME8"]'); checkbox[0].checked = false; // 製鉄技術
-	var checkbox = $a('//input[@id="OPT_DOME9"]'); checkbox[0].checked = false; // 騎兵増強
-	var checkbox = $a('//input[@id="OPT_DOME10"]'); checkbox[0].checked = true; // 食糧知識
-	var checkbox = $a('//input[@id="OPT_DOME11"]'); checkbox[0].checked = true; // 食糧技術
-	var checkbox = $a('//input[@id="OPT_DOME12"]'); checkbox[0].checked = false; // 農林知識
-	var checkbox = $a('//input[@id="OPT_DOME13"]'); checkbox[0].checked = false; // 農林技術
-	var checkbox = $a('//input[@id="OPT_DOME14"]'); checkbox[0].checked = false; // 加工知識
-	var checkbox = $a('//input[@id="OPT_DOME15"]'); checkbox[0].checked = false; // 加工技術
-	var checkbox = $a('//input[@id="OPT_DOME16"]'); checkbox[0].checked = false; // 富国
-	var checkbox = $a('//input[@id="OPT_DOME17"]'); checkbox[0].checked = false; // 富国論
-	var checkbox = $a('//input[@id="OPT_DOME18"]'); checkbox[0].checked = false; // 富国強兵
-	var checkbox = $a('//input[@id="OPT_DOME19"]'); checkbox[0].checked = false; // 豊穣
-	var checkbox = $a('//input[@id="OPT_DOME20"]'); checkbox[0].checked = false; // 美玉歌舞
-	var checkbox = $a('//input[@id="OPT_DOME21"]'); checkbox[0].checked = false; // 呉の治世
-	var checkbox = $a('//input[@id="OPT_DOME22"]'); checkbox[0].checked = false; // 王佐の才
+	var checkbox = $a('//input[@id="OPT_DOME1"]');  checkbox[0].checked = false;	// 伐採知識
+	var checkbox = $a('//input[@id="OPT_DOME2"]');  checkbox[0].checked = false;	// 伐採技術
+	var checkbox = $a('//input[@id="OPT_DOME3"]');  checkbox[0].checked = false;	// 弓兵増強
+	var checkbox = $a('//input[@id="OPT_DOME4"]');  checkbox[0].checked = false;	// 石切知識
+	var checkbox = $a('//input[@id="OPT_DOME5"]');  checkbox[0].checked = false;	// 石切技術
+	var checkbox = $a('//input[@id="OPT_DOME6"]');  checkbox[0].checked = false;	// 弓兵増強
+	var checkbox = $a('//input[@id="OPT_DOME7"]');  checkbox[0].checked = false;	// 製鉄知識
+	var checkbox = $a('//input[@id="OPT_DOME8"]');  checkbox[0].checked = false;	// 製鉄技術
+	var checkbox = $a('//input[@id="OPT_DOME9"]');  checkbox[0].checked = false;	// 騎兵増強
+	var checkbox = $a('//input[@id="OPT_DOME10"]'); checkbox[0].checked = true;	// 食糧知識
+	var checkbox = $a('//input[@id="OPT_DOME11"]'); checkbox[0].checked = true;	// 食糧技術
+	var checkbox = $a('//input[@id="OPT_DOME12"]'); checkbox[0].checked = true;	// 農林知識		2013.01.10 変更
+	var checkbox = $a('//input[@id="OPT_DOME13"]'); checkbox[0].checked = true;	// 農林技術		2013.01.10 変更
+	var checkbox = $a('//input[@id="OPT_DOME14"]'); checkbox[0].checked = false;	// 加工知識
+	var checkbox = $a('//input[@id="OPT_DOME15"]'); checkbox[0].checked = false;	// 加工技術
+	var checkbox = $a('//input[@id="OPT_DOME16"]'); checkbox[0].checked = true;	// 富国			2013.01.10 変更
+	var checkbox = $a('//input[@id="OPT_DOME17"]'); checkbox[0].checked = true;	// 富国論		2013.01.10 変更
+	var checkbox = $a('//input[@id="OPT_DOME18"]'); checkbox[0].checked = false;	// 富国強兵
+	var checkbox = $a('//input[@id="OPT_DOME19"]'); checkbox[0].checked = true;	// 豊穣			2013.01.10 変更
+	var checkbox = $a('//input[@id="OPT_DOME20"]'); checkbox[0].checked = false;	// 美玉歌舞
+	var checkbox = $a('//input[@id="OPT_DOME21"]'); checkbox[0].checked = false;	// 恵風
+	var checkbox = $a('//input[@id="OPT_DOME22"]'); checkbox[0].checked = true;	// 人選眼力		2013.01.10 変更
+	var checkbox = $a('//input[@id="OPT_DOME23"]'); checkbox[0].checked = false;	// 呉の治世
+	var checkbox = $a('//input[@id="OPT_DOME24"]'); checkbox[0].checked = false;	// 王佐の才
+	var checkbox = $a('//input[@id="OPT_DOME25"]'); checkbox[0].checked = false;	// 練兵訓練
+	var checkbox = $a('//input[@id="OPT_DOME26"]'); checkbox[0].checked = false;	// 　　修練
+	var checkbox = $a('//input[@id="OPT_DOME27"]'); checkbox[0].checked = false;	// 厩舎訓練
+	var checkbox = $a('//input[@id="OPT_DOME28"]'); checkbox[0].checked = false;	// 　　修練
+	var checkbox = $a('//input[@id="OPT_DOME29"]'); checkbox[0].checked = false;	// 弓兵訓練
+	var checkbox = $a('//input[@id="OPT_DOME30"]'); checkbox[0].checked = false;	// 　　修練
+	var checkbox = $a('//input[@id="OPT_DOME31"]'); checkbox[0].checked = false;	// 兵舎訓練
+	var checkbox = $a('//input[@id="OPT_DOME32"]'); checkbox[0].checked = false;	// 　　修練
 	// 糧村オプション
 	var checkbox = $a('//input[@id="OPT_KATEMURA"]');  checkbox[0].checked = true; // 糧村化
 }
@@ -2657,28 +2693,38 @@ function InitResVillage(){
 	var textbox = $a('//input[@id="OPT_CHKBOXLV5"]');   textbox[0].value = 20;
 	var textbox = $a('//input[@id="OPT_CHKBOXLV6"]');   textbox[0].value = 10;
 	// 内政設定
-	var checkbox = $a('//input[@id="OPT_DOME1"]'); checkbox[0].checked = true; // 伐採知識
-	var checkbox = $a('//input[@id="OPT_DOME2"]'); checkbox[0].checked = true; // 伐採技術
-	var checkbox = $a('//input[@id="OPT_DOME3"]'); checkbox[0].checked = false; // 弓兵増強
-	var checkbox = $a('//input[@id="OPT_DOME4"]'); checkbox[0].checked = true; // 石切知識
-	var checkbox = $a('//input[@id="OPT_DOME5"]'); checkbox[0].checked = true; // 石切技術
-	var checkbox = $a('//input[@id="OPT_DOME6"]'); checkbox[0].checked = false; // 弓兵増強
-	var checkbox = $a('//input[@id="OPT_DOME7"]'); checkbox[0].checked = true; // 製鉄知識
-	var checkbox = $a('//input[@id="OPT_DOME8"]'); checkbox[0].checked = true; // 製鉄技術
-	var checkbox = $a('//input[@id="OPT_DOME9"]'); checkbox[0].checked = false; // 騎兵増強
-	var checkbox = $a('//input[@id="OPT_DOME10"]'); checkbox[0].checked = true; // 食糧知識
-	var checkbox = $a('//input[@id="OPT_DOME11"]'); checkbox[0].checked = true; // 食糧技術
-	var checkbox = $a('//input[@id="OPT_DOME12"]'); checkbox[0].checked = false; // 農林知識
-	var checkbox = $a('//input[@id="OPT_DOME13"]'); checkbox[0].checked = false; // 農林技術
-	var checkbox = $a('//input[@id="OPT_DOME14"]'); checkbox[0].checked = false; // 加工知識
-	var checkbox = $a('//input[@id="OPT_DOME15"]'); checkbox[0].checked = false; // 加工技術
-	var checkbox = $a('//input[@id="OPT_DOME16"]'); checkbox[0].checked = false; // 富国
-	var checkbox = $a('//input[@id="OPT_DOME17"]'); checkbox[0].checked = false; // 富国論
-	var checkbox = $a('//input[@id="OPT_DOME18"]'); checkbox[0].checked = false; // 富国強兵
-	var checkbox = $a('//input[@id="OPT_DOME19"]'); checkbox[0].checked = false; // 豊穣
-	var checkbox = $a('//input[@id="OPT_DOME20"]'); checkbox[0].checked = false; // 美玉歌舞
-	var checkbox = $a('//input[@id="OPT_DOME21"]'); checkbox[0].checked = false; // 呉の治世
-	var checkbox = $a('//input[@id="OPT_DOME22"]'); checkbox[0].checked = false; // 王佐の才
+	var checkbox = $a('//input[@id="OPT_DOME1"]');  checkbox[0].checked = true;	// 伐採知識
+	var checkbox = $a('//input[@id="OPT_DOME2"]');  checkbox[0].checked = true;	// 伐採技術
+	var checkbox = $a('//input[@id="OPT_DOME3"]');  checkbox[0].checked = false;	// 弓兵増強
+	var checkbox = $a('//input[@id="OPT_DOME4"]');  checkbox[0].checked = true;	// 石切知識
+	var checkbox = $a('//input[@id="OPT_DOME5"]');  checkbox[0].checked = true;	// 石切技術
+	var checkbox = $a('//input[@id="OPT_DOME6"]');  checkbox[0].checked = false;	// 弓兵増強
+	var checkbox = $a('//input[@id="OPT_DOME7"]');  checkbox[0].checked = true;	// 製鉄知識
+	var checkbox = $a('//input[@id="OPT_DOME8"]');  checkbox[0].checked = true;	// 製鉄技術
+	var checkbox = $a('//input[@id="OPT_DOME9"]');  checkbox[0].checked = false;	// 騎兵増強
+	var checkbox = $a('//input[@id="OPT_DOME10"]'); checkbox[0].checked = true;	// 食糧知識
+	var checkbox = $a('//input[@id="OPT_DOME11"]'); checkbox[0].checked = true;	// 食糧技術
+	var checkbox = $a('//input[@id="OPT_DOME12"]'); checkbox[0].checked = true;	// 農林知識		2013.01.10 変更
+	var checkbox = $a('//input[@id="OPT_DOME13"]'); checkbox[0].checked = true;	// 農林技術		2013.01.10 変更
+	var checkbox = $a('//input[@id="OPT_DOME14"]'); checkbox[0].checked = true;	// 加工知識		2013.01.10 変更
+	var checkbox = $a('//input[@id="OPT_DOME15"]'); checkbox[0].checked = true;	// 加工技術		2013.01.10 変更
+	var checkbox = $a('//input[@id="OPT_DOME16"]'); checkbox[0].checked = true;	// 富国			2013.01.10 変更
+	var checkbox = $a('//input[@id="OPT_DOME17"]'); checkbox[0].checked = true;	// 富国論		2013.01.10 変更
+	var checkbox = $a('//input[@id="OPT_DOME18"]'); checkbox[0].checked = false;	// 富国強兵
+	var checkbox = $a('//input[@id="OPT_DOME19"]'); checkbox[0].checked = true;	// 豊穣			2013.01.10 変更
+	var checkbox = $a('//input[@id="OPT_DOME20"]'); checkbox[0].checked = false;	// 美玉歌舞
+	var checkbox = $a('//input[@id="OPT_DOME21"]'); checkbox[0].checked = true;	// 恵風			2013.01.10 変更
+	var checkbox = $a('//input[@id="OPT_DOME22"]'); checkbox[0].checked = true;	// 人選眼力		2013.01.10 変更
+	var checkbox = $a('//input[@id="OPT_DOME23"]'); checkbox[0].checked = false;	// 呉の治世
+	var checkbox = $a('//input[@id="OPT_DOME24"]'); checkbox[0].checked = false;	// 王佐の才
+	var checkbox = $a('//input[@id="OPT_DOME25"]'); checkbox[0].checked = false;	// 練兵訓練
+	var checkbox = $a('//input[@id="OPT_DOME26"]'); checkbox[0].checked = false;	// 　　修練
+	var checkbox = $a('//input[@id="OPT_DOME27"]'); checkbox[0].checked = false;	// 厩舎訓練
+	var checkbox = $a('//input[@id="OPT_DOME28"]'); checkbox[0].checked = false;	// 　　修練
+	var checkbox = $a('//input[@id="OPT_DOME29"]'); checkbox[0].checked = false;	// 弓兵訓練
+	var checkbox = $a('//input[@id="OPT_DOME30"]'); checkbox[0].checked = false;	// 　　修練
+	var checkbox = $a('//input[@id="OPT_DOME31"]'); checkbox[0].checked = false;	// 兵舎訓練
+	var checkbox = $a('//input[@id="OPT_DOME32"]'); checkbox[0].checked = false;	// 　　修練
 	// 糧村オプション
 	var checkbox = $a('//input[@id="OPT_KATEMURA"]');  checkbox[0].checked = false; // 糧村化
 }
@@ -2716,8 +2762,18 @@ function InitMilitarySite(){
 	var checkbox = $a('//input[@id="OPT_DOME18"]'); checkbox[0].checked = false; // 富国強兵
 	var checkbox = $a('//input[@id="OPT_DOME19"]'); checkbox[0].checked = false; // 豊穣
 	var checkbox = $a('//input[@id="OPT_DOME20"]'); checkbox[0].checked = false; // 美玉歌舞
-	var checkbox = $a('//input[@id="OPT_DOME21"]'); checkbox[0].checked = false; // 呉の治世
-	var checkbox = $a('//input[@id="OPT_DOME22"]'); checkbox[0].checked = false; // 王佐の才
+	var checkbox = $a('//input[@id="OPT_DOME21"]'); checkbox[0].checked = false;	// 恵風
+	var checkbox = $a('//input[@id="OPT_DOME22"]'); checkbox[0].checked = false;	// 人選眼力
+	var checkbox = $a('//input[@id="OPT_DOME23"]'); checkbox[0].checked = false;	// 呉の治世
+	var checkbox = $a('//input[@id="OPT_DOME24"]'); checkbox[0].checked = false;	// 王佐の才
+	var checkbox = $a('//input[@id="OPT_DOME25"]'); checkbox[0].checked = false;	// 練兵訓練
+	var checkbox = $a('//input[@id="OPT_DOME26"]'); checkbox[0].checked = false;	// 　　修練
+	var checkbox = $a('//input[@id="OPT_DOME27"]'); checkbox[0].checked = false;	// 厩舎訓練
+	var checkbox = $a('//input[@id="OPT_DOME28"]'); checkbox[0].checked = false;	// 　　修練
+	var checkbox = $a('//input[@id="OPT_DOME29"]'); checkbox[0].checked = false;	// 弓兵訓練
+	var checkbox = $a('//input[@id="OPT_DOME30"]'); checkbox[0].checked = false;	// 　　修練
+	var checkbox = $a('//input[@id="OPT_DOME31"]'); checkbox[0].checked = false;	// 兵舎訓練
+	var checkbox = $a('//input[@id="OPT_DOME32"]'); checkbox[0].checked = false;	// 　　修練
 }
 
 // 残す資源量のクリア
@@ -2807,7 +2863,7 @@ function addIniBilderHtml() {
 	ABContainer.style.MozBorderRadius = "4px";	// 角丸
 	ABContainer.style.top = popupTop + "px";
 	ABContainer.style.left = popupLeft + "px";
-	ABContainer.style.fontSize = "10px";
+	ABContainer.style.font = fontstyle;
 	ABContainer.style.padding = "4px";
 	ABContainer.style.zIndex = 999;
 	d.body.appendChild(ABContainer);
@@ -2844,7 +2900,6 @@ function addIniBilderHtml() {
 
 	var version = d.createElement("span");
 	version.style.color = COLOR_TITLE;
-	version.style.font = '96% "ＭＳ ゴシック"';
 	version.style.margin = "2px";
 	version.innerHTML = " Ver." + VERSION;
 
@@ -3041,7 +3096,6 @@ function addIniBilderHtml() {
 		var td = d.createElement("td");
 		td.style.padding = "3px";
 //		td.style.border = "solid 2px black";
-		tr.style.fontFamily = "ＭＳ ゴシック";
 		tr.appendChild(td);
 		tbl.appendChild(tr);
 		var msg = d.createElement("span");
@@ -3061,10 +3115,10 @@ function addIniBilderHtml() {
 
 		for (var i = 0; i < villages.length; i++) {
 			var vname = villages[i][IDX_BASE_NAME];
-		    var fColor = "#71C4F9";
+			var fColor = "#71C4F9";
 			var tr = d.createElement("tr");
 			var td = d.createElement("td");
-			tr.style.fontFamily = "ＭＳ ゴシック";
+			tr.style.fontWeight = "bold";
 			td.style.padding = "2px";
 			td.style.border = "solid 1px black";
 			td.style.backgroundColor = "#E6CF88";
@@ -3078,7 +3132,7 @@ function addIniBilderHtml() {
 				vId2 = villages[i][IDX_XY];
 
 				var td00 = d.createElement("div");
-				td00.style.width = "110px";
+				td00.style.width = "140px";
 
 				var tdA = d.createElement("td");
 				tdA.style.padding = "3px";
@@ -3105,7 +3159,7 @@ function addIniBilderHtml() {
 				actionsTd.style.backgroundColor = COLOR_BACK;
 				actionsTd.style.border = "solid 1px black";
 				actionsTd.style.padding = "3px";
-				actionsTd.style.width = "330px";
+				actionsTd.style.width = "380px";
 				tr.appendChild(actionsTd);
 				var actions = sortAction(villages[i][IDX_ACTIONS]);
 				var nowTime = new Date();
@@ -3153,7 +3207,6 @@ function addIniBilderHtml() {
 
 		var tr = d.createElement("tr");
 		var td = d.createElement("td");
-		tr.style.fontFamily = "ＭＳ ゴシック";
 
 		tbl2.appendChild(tr);
 
@@ -3166,7 +3219,7 @@ function addIniBilderHtml() {
 		actionsTd.style.backgroundColor = COLOR_BACK;
 		actionsTd.style.border = "solid 1px black";
 		actionsTd.style.padding = "3px";
-		actionsTd.style.width = "445px";
+		actionsTd.style.width = "525px";
 
 		tr.appendChild(actionsTd);
 
@@ -3323,8 +3376,7 @@ function addInifacHtml(vId) {
 	ABfacContainer.style.border = "solid 2px black";
 	ABfacContainer.style.left = popupLeft + "px";
 	ABfacContainer.style.top = popupTop + "px";
-	ABfacContainer.style.fontSize = "10px";
-	ABfacContainer.style.fontFamily = "ＭＳ ゴシック";
+	ABfacContainer.style.font = fontstyle;
 	ABfacContainer.style.padding = "2px";
 	ABfacContainer.style.MozBorderRadius = "4px";
 	ABfacContainer.style.zIndex = 999;
@@ -3558,7 +3610,6 @@ function addInifacHtml(vId) {
 
 	var Market_Box = d.createElement("table");
 		Market_Box.style.border ="solid 2px black";
-		Market_Box.style.fontFamily = "ＭＳ ゴシック";
 		Market_Box.style.margin = "0px 4px 4px 0px";
 		Market_Box.style.width = "100%";
 
@@ -3604,7 +3655,6 @@ function addInifacHtml(vId) {
 	var Contribution_Box = d.createElement("table");
 		Contribution_Box.style.margin = "0px 4px 4px 0px";
 		Contribution_Box.style.border ="solid 2px black";
-		Contribution_Box.style.fontFamily = "ＭＳ ゴシック";
 		Contribution_Box.style.width = "100%";
 
 	var tr400 = d.createElement("tr");
@@ -3635,7 +3685,6 @@ function addInifacHtml(vId) {
 	var Scrap_Box = d.createElement("table");
 		Scrap_Box.style.margin = "0px 4px 4px 0px";
 		Scrap_Box.style.border ="solid 2px black";
-		Scrap_Box.style.fontFamily = "ＭＳ ゴシック";
 		Scrap_Box.style.width = "100%";
 
 	var tr510 = d.createElement("tr");
@@ -3669,7 +3718,6 @@ function addInifacHtml(vId) {
 	var Field_Box = d.createElement("table");
 		Field_Box.style.margin = "0px 4px 4px 0px";
 		Field_Box.style.border ="solid 2px black";
-		Field_Box.style.fontFamily = "ＭＳ ゴシック";
 		Field_Box.style.width = "100%";
 
 	var tr600 = d.createElement("tr");
@@ -3709,7 +3757,6 @@ function addInifacHtml(vId) {
 		ccreateCheckBox(td800, "OPT_BLD_SOL", OPT_BLD_SOL, " 自動造兵", "この都市で自動的に造兵します。", 0);
 
 	var tr81 = d.createElement("tr");
-		tr81.style.fontFamily = "ＭＳ ゴシック";
 		tr81.style.border = "solid 1px black";
 		tr81.style.backgroundColor =COLOR_BACK;
 	var td81 = d.createElement("td");
@@ -3771,29 +3818,29 @@ function addInifacHtml(vId) {
 	ccreateText(td811, "dummy", "　兵数上限", 0 );
 	ccreateText(td811, "dummy", "　作成単位", 0 );
 
-	ccreateTextBox(td812,"OPT_SOL_MAX1", OPT_SOL_MAX[1],"","剣兵の兵数上限",8,0);
-	ccreateTextBox(td813,"OPT_SOL_MAX3", OPT_SOL_MAX[3],"","槍兵の兵数上限",8,0);
-	ccreateTextBox(td814,"OPT_SOL_MAX8", OPT_SOL_MAX[8],"","弓兵の兵数上限",8,0);
-	ccreateTextBox(td815,"OPT_SOL_MAX5", OPT_SOL_MAX[5],"","騎兵の兵数上限",8,0);
-	ccreateTextBox(td816,"OPT_SOL_MAX4", OPT_SOL_MAX[4],"","矛槍兵の兵数上限",8,0);
-	ccreateTextBox(td817,"OPT_SOL_MAX9", OPT_SOL_MAX[9],"","弩兵の兵数上限",8,0);
-	ccreateTextBox(td818,"OPT_SOL_MAX7", OPT_SOL_MAX[7],"","近衛騎兵の兵数上限",8,0);
-	ccreateTextBox(td819,"OPT_SOL_MAX10", OPT_SOL_MAX[10],"","斥候の兵数上限",8,0);
-	ccreateTextBox(td820,"OPT_SOL_MAX11", OPT_SOL_MAX[11],"","斥候騎兵の兵数上限",8,0);
-	ccreateTextBox(td821,"OPT_SOL_MAX12", OPT_SOL_MAX[12],"","衝車の兵数上限",8,0);
-	ccreateTextBox(td822,"OPT_SOL_MAX13", OPT_SOL_MAX[13],"","投石機の兵数上限",8,0);
+	ccreateTextBox(td812,"OPT_SOL_MAX1", OPT_SOL_MAX[1],"","剣兵の兵数上限",7,0);
+	ccreateTextBox(td813,"OPT_SOL_MAX3", OPT_SOL_MAX[3],"","槍兵の兵数上限",7,0);
+	ccreateTextBox(td814,"OPT_SOL_MAX8", OPT_SOL_MAX[8],"","弓兵の兵数上限",7,0);
+	ccreateTextBox(td815,"OPT_SOL_MAX5", OPT_SOL_MAX[5],"","騎兵の兵数上限",7,0);
+	ccreateTextBox(td816,"OPT_SOL_MAX4", OPT_SOL_MAX[4],"","矛槍兵の兵数上限",7,0);
+	ccreateTextBox(td817,"OPT_SOL_MAX9", OPT_SOL_MAX[9],"","弩兵の兵数上限",7,0);
+	ccreateTextBox(td818,"OPT_SOL_MAX7", OPT_SOL_MAX[7],"","近衛騎兵の兵数上限",7,0);
+	ccreateTextBox(td819,"OPT_SOL_MAX10", OPT_SOL_MAX[10],"","斥候の兵数上限",7,0);
+	ccreateTextBox(td820,"OPT_SOL_MAX11", OPT_SOL_MAX[11],"","斥候騎兵の兵数上限",7,0);
+	ccreateTextBox(td821,"OPT_SOL_MAX12", OPT_SOL_MAX[12],"","衝車の兵数上限",7,0);
+	ccreateTextBox(td822,"OPT_SOL_MAX13", OPT_SOL_MAX[13],"","投石機の兵数上限",7,0);
 
-	ccreateTextBox(td812,"OPT_SOL_ADD1", OPT_SOL_ADD[1],"","剣兵の作成単位",8,0);
-	ccreateTextBox(td813,"OPT_SOL_ADD3", OPT_SOL_ADD[3],"","槍兵の作成単位",8,0);
-	ccreateTextBox(td814,"OPT_SOL_ADD8", OPT_SOL_ADD[8],"","弓兵の作成単位",8,0);
-	ccreateTextBox(td815,"OPT_SOL_ADD5", OPT_SOL_ADD[5],"","騎兵の作成単位",8,0);
-	ccreateTextBox(td816,"OPT_SOL_ADD4", OPT_SOL_ADD[4],"","矛槍兵の作成単位",8,0);
-	ccreateTextBox(td817,"OPT_SOL_ADD9", OPT_SOL_ADD[9],"","弩兵の作成単位",8,0);
-	ccreateTextBox(td818,"OPT_SOL_ADD7", OPT_SOL_ADD[7],"","近衛騎兵の作成単位",8,0);
-	ccreateTextBox(td819,"OPT_SOL_ADD10", OPT_SOL_ADD[10],"","斥候の作成単位",8,0);
-	ccreateTextBox(td820,"OPT_SOL_ADD11", OPT_SOL_ADD[11],"","斥候騎兵の作成単位",8,0);
-	ccreateTextBox(td821,"OPT_SOL_ADD12", OPT_SOL_ADD[12],"","衝車の作成単位",8,0);
-	ccreateTextBox(td822,"OPT_SOL_ADD13", OPT_SOL_ADD[13],"","投石機の作成単位",8,0);
+	ccreateTextBox(td812,"OPT_SOL_ADD1", OPT_SOL_ADD[1],"","剣兵の作成単位",7,0);
+	ccreateTextBox(td813,"OPT_SOL_ADD3", OPT_SOL_ADD[3],"","槍兵の作成単位",7,0);
+	ccreateTextBox(td814,"OPT_SOL_ADD8", OPT_SOL_ADD[8],"","弓兵の作成単位",7,0);
+	ccreateTextBox(td815,"OPT_SOL_ADD5", OPT_SOL_ADD[5],"","騎兵の作成単位",7,0);
+	ccreateTextBox(td816,"OPT_SOL_ADD4", OPT_SOL_ADD[4],"","矛槍兵の作成単位",7,0);
+	ccreateTextBox(td817,"OPT_SOL_ADD9", OPT_SOL_ADD[9],"","弩兵の作成単位",7,0);
+	ccreateTextBox(td818,"OPT_SOL_ADD7", OPT_SOL_ADD[7],"","近衛騎兵の作成単位",7,0);
+	ccreateTextBox(td819,"OPT_SOL_ADD10", OPT_SOL_ADD[10],"","斥候の作成単位",7,0);
+	ccreateTextBox(td820,"OPT_SOL_ADD11", OPT_SOL_ADD[11],"","斥候騎兵の作成単位",7,0);
+	ccreateTextBox(td821,"OPT_SOL_ADD12", OPT_SOL_ADD[12],"","衝車の作成単位",7,0);
+	ccreateTextBox(td822,"OPT_SOL_ADD13", OPT_SOL_ADD[13],"","投石機の作成単位",7,0);
 
 	ccreateButton(td823, "作成中止", "兵士の作成単位を初期化します。", function() {clearInitSoldier()});
 
@@ -3813,7 +3860,6 @@ function addInifacHtml(vId) {
 		ccreateCheckBox(td900, "OPT_BKBG_CHK", OPT_BKBG_CHK, " 自動武器・防具強化", "この都市で自動的に武器・防具の強化をします。", 0);
 
 	var tr91 = d.createElement("tr");
-		tr91.style.fontFamily = "ＭＳ ゴシック";
 		tr91.style.border = "solid 1px black";
 		tr91.style.backgroundColor =COLOR_BACK;
 	var td91 = d.createElement("td");
@@ -3878,29 +3924,29 @@ function addInifacHtml(vId) {
 	ccreateText(td911, "dummy", "武器レベル", 0 );
 	ccreateText(td911, "dummy", "防具レベル", 0 );
 
-	ccreateTextBox(td912,"OPT_BK_LV1", OPT_BK_LV[1],"","剣兵の武器レベル",8,0);
-	ccreateTextBox(td913,"OPT_BK_LV3", OPT_BK_LV[3],"","槍兵の武器レベル",8,0);
-	ccreateTextBox(td914,"OPT_BK_LV8", OPT_BK_LV[8],"","弓兵の武器レベル",8,0);
-	ccreateTextBox(td916,"OPT_BK_LV4", OPT_BK_LV[4],"","矛槍兵の武器レベル",8,0);
-	ccreateTextBox(td915,"OPT_BK_LV5", OPT_BK_LV[5],"","騎兵の武器レベル",8,0);
-	ccreateTextBox(td917,"OPT_BK_LV9", OPT_BK_LV[9],"","弩兵の武器レベル",8,0);
-	ccreateTextBox(td918,"OPT_BK_LV7", OPT_BK_LV[7],"","近衛騎兵の武器レベル",8,0);
+	ccreateTextBox(td912,"OPT_BK_LV1", OPT_BK_LV[1],"","剣兵の武器レベル",7,0);
+	ccreateTextBox(td913,"OPT_BK_LV3", OPT_BK_LV[3],"","槍兵の武器レベル",7,0);
+	ccreateTextBox(td914,"OPT_BK_LV8", OPT_BK_LV[8],"","弓兵の武器レベル",7,0);
+	ccreateTextBox(td916,"OPT_BK_LV4", OPT_BK_LV[4],"","矛槍兵の武器レベル",7,0);
+	ccreateTextBox(td915,"OPT_BK_LV5", OPT_BK_LV[5],"","騎兵の武器レベル",7,0);
+	ccreateTextBox(td917,"OPT_BK_LV9", OPT_BK_LV[9],"","弩兵の武器レベル",7,0);
+	ccreateTextBox(td918,"OPT_BK_LV7", OPT_BK_LV[7],"","近衛騎兵の武器レベル",7,0);
 	ccreateText(td919, "dummy", "　", 0 );
 	ccreateText(td920, "dummy", "　", 0 );
-	ccreateTextBox(td921,"OPT_BK_LV12", OPT_BK_LV[12],"","衝車の武器レベル",8,0);
-	ccreateTextBox(td922,"OPT_BK_LV13", OPT_BK_LV[13],"","投石機の武器レベル",8,0);
+	ccreateTextBox(td921,"OPT_BK_LV12", OPT_BK_LV[12],"","衝車の武器レベル",7,0);
+	ccreateTextBox(td922,"OPT_BK_LV13", OPT_BK_LV[13],"","投石機の武器レベル",7,0);
 
-	ccreateTextBox(td912,"OPT_BG_LV1", OPT_BG_LV[1],"","剣兵の防具レベル",8,0);
-	ccreateTextBox(td913,"OPT_BG_LV3", OPT_BG_LV[3],"","槍兵の防具レベル",8,0);
-	ccreateTextBox(td914,"OPT_BG_LV8", OPT_BG_LV[8],"","弓兵の防具レベル",8,0);
-	ccreateTextBox(td916,"OPT_BG_LV4", OPT_BG_LV[4],"","矛槍兵の防具レベル",8,0);
-	ccreateTextBox(td915,"OPT_BG_LV5", OPT_BG_LV[5],"","騎兵の防具レベル",8,0);
-	ccreateTextBox(td917,"OPT_BG_LV9", OPT_BG_LV[9],"","弩兵の防具レベル",8,0);
-	ccreateTextBox(td918,"OPT_BG_LV7", OPT_BG_LV[7],"","近衛騎兵の防具レベル",8,0);
-	ccreateTextBox(td919,"OPT_BG_LV10", OPT_BG_LV[10],"","斥候の防具レベル",8,0);
-	ccreateTextBox(td920,"OPT_BG_LV11", OPT_BG_LV[11],"","斥候騎兵の防具レベル",8,0);
-	ccreateTextBox(td921,"OPT_BG_LV12", OPT_BG_LV[12],"","衝車の防具レベル",8,0);
-	ccreateTextBox(td922,"OPT_BG_LV13", OPT_BG_LV[13],"","投石機の防具レベル",8,0);
+	ccreateTextBox(td912,"OPT_BG_LV1", OPT_BG_LV[1],"","剣兵の防具レベル",7,0);
+	ccreateTextBox(td913,"OPT_BG_LV3", OPT_BG_LV[3],"","槍兵の防具レベル",7,0);
+	ccreateTextBox(td914,"OPT_BG_LV8", OPT_BG_LV[8],"","弓兵の防具レベル",7,0);
+	ccreateTextBox(td916,"OPT_BG_LV4", OPT_BG_LV[4],"","矛槍兵の防具レベル",7,0);
+	ccreateTextBox(td915,"OPT_BG_LV5", OPT_BG_LV[5],"","騎兵の防具レベル",7,0);
+	ccreateTextBox(td917,"OPT_BG_LV9", OPT_BG_LV[9],"","弩兵の防具レベル",7,0);
+	ccreateTextBox(td918,"OPT_BG_LV7", OPT_BG_LV[7],"","近衛騎兵の防具レベル",7,0);
+	ccreateTextBox(td919,"OPT_BG_LV10", OPT_BG_LV[10],"","斥候の防具レベル",7,0);
+	ccreateTextBox(td920,"OPT_BG_LV11", OPT_BG_LV[11],"","斥候騎兵の防具レベル",7,0);
+	ccreateTextBox(td921,"OPT_BG_LV12", OPT_BG_LV[12],"","衝車の防具レベル",7,0);
+	ccreateTextBox(td922,"OPT_BG_LV13", OPT_BG_LV[13],"","投石機の防具レベル",7,0);
 
 	ccreateButton(td923, "初期化", "武器・防具の設定レベルを消去します。", function() {clearInitArmsArmor()});
 
@@ -3920,7 +3966,6 @@ function addInifacHtml(vId) {
 		ccreateText(tda10, "dummy", "■ 自動造兵・武器防具強化時に残す資源量 ■", 0 );
 
 	var tra1 = d.createElement("tr");
-		tra1.style.fontFamily = "ＭＳ ゴシック";
 		tra1.style.border = "solid 1px black";
 		tra1.style.backgroundColor =COLOR_BACK;
 	var tda1 = d.createElement("td");
@@ -3969,13 +4014,13 @@ function addInifacHtml(vId) {
 	ccreateText(tda11, "dummy", "残す資源量", 0 );
 
 	ccreateText(tda12, "dummy", "木", 0 );
-	ccreateTextBox(tda12,"OPT_BLD_WOOD", OPT_BLD_WOOD,"","木を残す量",8,0);
+	ccreateTextBox(tda12,"OPT_BLD_WOOD", OPT_BLD_WOOD,"","木を残す量",7,0);
 	ccreateText(tda13, "dummy", "石", 0 );
-	ccreateTextBox(tda13,"OPT_BLD_STONE", OPT_BLD_STONE,"","石を残す量",8,0);
+	ccreateTextBox(tda13,"OPT_BLD_STONE", OPT_BLD_STONE,"","石を残す量",7,0);
 	ccreateText(tda14, "dummy", "鉄", 0 );
-	ccreateTextBox(tda14,"OPT_BLD_IRON", OPT_BLD_IRON,"","鉄を残す量",8,0);
+	ccreateTextBox(tda14,"OPT_BLD_IRON", OPT_BLD_IRON,"","鉄を残す量",7,0);
 	ccreateText(tda15, "dummy", "糧", 0 );
-	ccreateTextBox(tda15,"OPT_BLD_RICE", OPT_BLD_RICE,"","糧を残す量",8,0);
+	ccreateTextBox(tda15,"OPT_BLD_RICE", OPT_BLD_RICE,"","糧を残す量",7,0);
 //	ccreateText(tda16, "dummy", "　", 0 );
 	ccreateButton(tda16, "初期化", "残す資源量の設定内容を消去します。", function() {clearInitRemainingRes()},54,10);
 
@@ -3983,7 +4028,6 @@ function addInifacHtml(vId) {
 
 	var Operation_Box = d.createElement("table");
 		Operation_Box.style.border ="solid 0px gray";
-		Operation_Box.style.fontFamily = "ＭＳ ゴシック";
 
 	var tr711 = d.createElement("tr");
 	var td711 = d.createElement("td");
@@ -4011,7 +4055,7 @@ function addInifacHtml(vId) {
 			closeIniBilderBox()
 			openIniBilderBox()
 			alert("市場情報を初期化しました");
-		},85);
+		},90);
 	}
 
 	// == コンテナ設定 ==
@@ -6109,7 +6153,7 @@ function ccreateCheckBoxKai2(container, id, def, text, title, left )
 	lb.style.verticalAlign = "middle";
 	
 	var tx = d.createTextNode(text);
-	tx.fontsize = "10px";
+	tx.fontSize = "10px";
 	lb.appendChild( tx );
 	var tb = d.createElement("input");
 	tb.type = "text";
@@ -6306,7 +6350,7 @@ function createActionDiv(action, nowTime, baseXy, host) {
 		text += " (あと" + generateWaitTimeString(finishTime, nowTime) + ")";
 //	}
 	text += " ";
-	text += action[IDX2_STATUS];
+	text += action[IDX2_STATUS] + " ";
 	textSpan.innerHTML = text;
 	actionDiv.appendChild(textSpan);
 	
@@ -6351,15 +6395,11 @@ function confirmTimer() {
 		saveVillages(hosts[ii] + PGNAME, villages);
 	}
 	
-	//更新後内容で表示
-/*
-	if ( getStayMode() ) {
+	//更新後内容で表示　2013.01.10 ???
+ 	if ( getStayMode() ) {
 		closeIniBilderBox()
 		openIniBilderBox()
 	}
-*/
-	closeIniBilderBox()
-	openIniBilderBox()
 
 }
 
@@ -6397,8 +6437,10 @@ function deleteAction(key) {
 		//見つかったら更新
 		if (exists) {
 			saveVillages(hosts[ii] + PGNAME, villages);
-			closeIniBilderBox();
-			openIniBilderBox();
+		 	if ( getStayMode() ) {
+				closeIniBilderBox()
+				openIniBilderBox()
+			}
 			return;
 		}
 	}
