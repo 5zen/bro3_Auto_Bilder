@@ -344,8 +344,8 @@ var SUZUME = 216;
 var FACLINK = "http://SITE/facility/facility.php?x=urlX&y=urlY";
 var VILLAGELINK = "http://SITE/village.php#ptop";
 // 2012.04.10
-var LANDLINK = "http://SITE/land.php?x=urlX&y=urlY"
-var SETTLELINK = "http://SITE/facility/select_type.php?x=urlX&y=urlY&mode=build&type=fID"
+var LANDLINK = "http://SITE/land.php?x=urlX&y=urlY";
+var SETTLELINK = "http://SITE/facility/select_type.php?x=urlX&y=urlY&mode=build&type=fID";
 
 var VillageData = new Array();
 var OPT_VILLAGE = new Array();
@@ -674,10 +674,10 @@ function settleVillages(z){
 		var bldtbl = [17, 35, 54, 80, 112, 150, 195, 248, 310, 999];
 		//現在の拠点の数
 		//var villages = loadVillages(HOST);
-		//var villageLength = document.evaluate('//div[@id="lodgment"]/div/ul/li/a', document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null); //拠点数－１になる
+		//var villageLength = document.evaluate('//div[@id="lodgment"]/div/ul/li/a', document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null); //拠点数-1になる
 
 		// 2012.04.25 本鯖対応
-		var villageLength = $a('//ul/li/a[contains(@href,"/village_change.php?village_id")]').length; //拠点数－１になる
+		var villageLength = $a('//ul/li/a[contains(@href,"/village_change.php?village_id")]').length; //拠点数-1になる
 
 		//作成中の拠点の数
         var lists = cloadData(HOST+"ReserveList", "[]", true, true);
