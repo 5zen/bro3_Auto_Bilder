@@ -2,13 +2,12 @@
 // @name         bro3_Auto_Bilder
 // @namespace    http://at-n2.net/
 // @description  ブラウザ三国志 自動建築スクリプト By nottisan + 5zen（自動内政改良）
-// @icon         http://5zen.info/hokan/icon.png
+// @icon         https://raw.github.com/5zen/fake3gokushi/master/icon.png
 // @include      http://*.3gokushi.jp/*
 // @require      http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js
-// @homepage     http://5zen.info/
+// @homepage     https://github.com/5zen/
+// @grant        none
 // @version      2013.01.10 (やっぱり人柱版）
-// @updateURL    http://userscripts.org/scripts/source/132191.meta.js
-// @icon         http://5zen.info/mikanbox/icon.png
 // ==/UserScript==
 
 // 2012.04.22 巡回部分の修正
