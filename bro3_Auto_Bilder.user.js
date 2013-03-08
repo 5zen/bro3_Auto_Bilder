@@ -1,13 +1,15 @@
 // ==UserScript==
-// @name         bro3_Auto_Bilder
-// @namespace    http://at-n2.net/
-// @description  ブラウザ三国志 自動建築スクリプト By nottisan + 5zen（自動内政改良）
-// @icon         https://raw.github.com/5zen/fake3gokushi/master/icon.png
-// @include      http://*.3gokushi.jp/*
-// @require      http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js
-// @homepage     https://github.com/5zen/
-// @grant        none
-// @version      2013.01.10 (やっぱり人柱版）
+// @name	bro3_Auto_Bilder
+// @namespace	http://at-n2.net/
+// @description	ブラウザ三国志 自動建築スクリプト By nottisan + 5zen（自動内政改良）
+// @icon	https://raw.github.com/5zen/fake3gokushi/master/icon.png
+// @include	http://*.3gokushi.jp/*
+// @require	http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js
+// @homepage	https://github.com/5zen/
+// @grant	GM_getValue
+// @grant	GM_setValue
+// @grant	GM_xmlhttpRequest
+// @version	2013.03.08
 // ==/UserScript==
 
 // 2012.04.22 巡回部分の修正
@@ -62,8 +64,9 @@
 // 2013.01.10 糧村・資源村のスキルプリセットを修正
 //            ダイアログデザインをちょっと修正
 //            情報表示ダイアログを非表示でも強制的に表示される現象の修正（領地画面とか）
+// 2013.03.08 Firefox 19.0.2 + Greasemonkey 1.8 での動作するように修正
 
-var VERSION = "2013.01.10 (やっぱり人柱版）";	// バージョン情報
+var VERSION = "2013.03.08";	// バージョン情報
 
 //*** これを変更するとダイアログのフォントスタイルが変更できます ***
 var fontstyle =	"bold 10px 'ＭＳ ゴシック'";	// ダイアログの基本フォントスタイル
@@ -2840,7 +2843,6 @@ function deleteInifacFrameHtml() {
 //ステイタス取得HTML追加
 function addIniBilderHtml() {
 
-
 //	var popupLeft = 500;
 //	var popupTop = 250;
 
@@ -2888,7 +2890,6 @@ function addIniBilderHtml() {
 	});
 
 	$e(d, "mouseup", function(event){ g_MD=""; });
-
 	// タイトル＋バージョン
 	var title = d.createElement("span");
 	title.style.color = "#FFFFFF";
