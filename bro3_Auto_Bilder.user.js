@@ -9,6 +9,10 @@
 // @grant	GM_getValue
 // @grant	GM_setValue
 // @grant	GM_xmlhttpRequest
+// @grant	GM_addStyle
+// @grant	GM_deleteValue
+// @grant	GM_log
+// @grant	GM_registerMenuCommand
 // @version	2013.03.08
 // ==/UserScript==
 
